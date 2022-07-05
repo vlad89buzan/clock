@@ -590,3 +590,12 @@ main {
   -webkit-box-shadow: 0 0 20px var(--clr), 0 0 60px var(--clr);
           box-shadow: 0 0 20px var(--clr), 0 0 60px var(--clr);
 }
+
+@media screen and (min-width: 599.98px) {
+  #time {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}

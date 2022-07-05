@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css?_v=20220705172235' rel='stylesheet'>
-	<link rel="stylesheet" href="css/style.min.css?_v=20220705172235">
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css?_v=20220705173325' rel='stylesheet'>
+	<link rel="stylesheet" href="css/style.min.css?_v=20220705173325">
 	<title>Главная</title>
 </head>
 
@@ -29,7 +29,7 @@
 					<svg>
 						<circle></circle>
 						<circle id="mm"></circle>
-                        
+
 					</svg>
 					<div class="" id="minutes">00</div>
 					<span>minutes</span>
@@ -68,39 +68,45 @@
 			let hrDot = document.querySelector('.hr__dot');
 			let mDot = document.querySelector('.m__dot');
 			let sDot = document.querySelector('.s__dot');
-			
+
 
 			let hhStrokeDasharray = (window.getComputedStyle(hh)).strokeDasharray;
 			let mmStrokeDasharray = (window.getComputedStyle(mm)).strokeDasharray;
 			let ssStrokeDasharray = (window.getComputedStyle(ss)).strokeDasharray;
 
-			setInterval(() => {
-				let h = new Date().getHours();
-				let m = new Date().getMinutes();
-				let s = new Date().getSeconds();
-				let am = h >= 12 ? 'PM' : 'AM';
-				//convert 24hr clock to 12hr
-				if (h > 12) {
-					h = h - 12
+			function updateClock() {
+					let h = new Date().getHours();
+					let m = new Date().getMinutes();
+					let s = new Date().getSeconds();
+					let am = h >= 12 ? 'PM' : 'AM';
+					//convert 24hr clock to 12hr
+					if (h > 12) {
+						h = h - 12
+					}
+					//add 0 before single digit number
+					h = (h < 10) ? '0' + h : h;
+					m = (m < 10) ? '0' + m : m;
+					s = (s < 10) ? '0' + s : s;
+
+					hours.innerHTML = h;
+					minutes.innerHTML = m;
+					seconds.innerHTML = s;
+					ampm.innerHTML = am;
+
+					hh.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * h) / 12;
+					mm.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * m) / 60;
+					ss.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * s) / 60;
+
+					hrDot.style.transform = `rotate(${h * 30}deg)`;
+					mDot.style.transform = `rotate(${m * 6}deg)`;
+					sDot.style.transform = `rotate(${s * 6}deg)`;
 				}
-				//add 0 before single digit number
-				h = (h < 10) ? '0' + h : h;
-				m = (m < 10) ? '0' + m : m;
-				s = (s < 10) ? '0' + s : s;
+				updateClock();
+			setInterval(() => {
+				updateClock();
+				
 
-				hours.innerHTML = h;
-				minutes.innerHTML = m;
-				seconds.innerHTML = s;
-				ampm.innerHTML = am;
-
-				hh.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * h) / 12;
-				mm.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * m) / 60;
-				ss.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * s) / 60;
-
-				hrDot.style.transform = `rotate(${h * 30}deg)`;
-				mDot.style.transform = `rotate(${m * 6}deg)`;
-				sDot.style.transform = `rotate(${s * 6}deg)`;
-			},1000)
+			}, 1000)
 
 
 
@@ -114,5 +120,5 @@
 
 
 	</script>
-	<!-- <script src="js/app.min.js?_v=20220705172235"></script> -->
+	<!-- <script src="js/app.min.js?_v=20220705173325"></script> -->
 </body>

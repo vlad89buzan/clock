@@ -43,6 +43,9 @@ main {
   color: #fff;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width:$bp600) {
+    flex-direction: row;
+  }
   .circle {
   span{
     position: absolute;
