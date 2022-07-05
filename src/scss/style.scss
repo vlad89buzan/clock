@@ -1,0 +1,112 @@
+@import "normalize";
+@import "var";
+// @import "fonts";
+//@import "mixins";
+// @import 'blocks/header';
+
+:root {
+  --diametr: 150px;
+  --d:150;
+  --strokePx:5px;
+  --stroke:5;
+  --r:calc((var(--d)/2 - (var(--stroke))))
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+main {
+  flex: 1 1 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f363e;
+}
+
+#time {
+  display: flex;
+  gap: 30px;
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  .circle {
+  span{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: capitalize;
+  }
+    position: relative;
+    width: var(--diametr);
+    height: var(--diametr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+      position: relative;
+      width: var(--diametr);
+      height: var(--diametr);
+      transform: rotate(270deg);
+      circle {
+        &:nth-child(2){
+          stroke:var(--clr) ;
+          stroke-dasharray: calc(2*var(--r)*3.14);
+        }
+        width: 100%;
+        height: 100%;
+        fill: transparent;
+        stroke: #191919;
+        stroke-width: var(--stroke);
+        transform: translate(var(--strokePx),var(--strokePx));
+        cx: var(--r);
+        cy: var(--r);
+        r: var(--r);
+    }
+    }
+    div {
+      font-weight: 500;
+      font-size: 1.5rem;
+      position: absolute;
+    }
+  }
+  .ap{
+    display: flex;
+    align-items: center;
+  }
+  .dot{
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    &::after{
+      position: absolute;
+      
+      content: '';
+      width: 15px;
+      height: 15px;
+      background-color: var(--clr);
+      border-radius: 50%;
+      z-index: 2;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px var(--clr),0 0 60px var(--clr);
+    }
+   }
+
+}

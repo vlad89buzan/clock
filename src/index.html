@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+@@include('html/head.html',{
+"title":"Главная"
+})
+
+<body>
+	<div class="wrapper">
+		<!-- @@include('html/header.html',{}) -->
+		<main>
+			<div id="time">
+				<div class="circle" style="--clr:#ff2972">
+					<div class="dot hr__dot"></div>
+					<svg>
+						<circle></circle>
+						<circle id="hh"></circle>
+
+					</svg>
+					<div class="" id="hours">00</div>
+					<span>hours</span>
+				</div>
+				<div class="circle" style="--clr:#fee800">
+					<div class="dot m__dot"></div>
+					<svg>
+						<circle></circle>
+						<circle id="mm"></circle>
+                        
+					</svg>
+					<div class="" id="minutes">00</div>
+					<span>minutes</span>
+				</div>
+				<div class="circle" style="--clr:#04fc43">
+					<div class="dot s__dot"></div>
+					<svg>
+						<circle></circle>
+						<circle id="ss"></circle>
+
+					</svg>
+					<div class="" id="seconds">00</div>
+					<span>seconds</span>
+				</div>
+				<div class="ap">
+					<div class="" id="ampm">AM</div>
+				</div>
+			</div>
+
+
+		</main>
+		<!-- @@include('html/footer.html',{}) -->
+	</div>
+	<script>
+
+		window.addEventListener('DOMContentLoaded', () => {
+			let hours = document.querySelector('#hours');
+			let minutes = document.querySelector('#minutes');
+			let seconds = document.querySelector('#seconds');
+			let ampm = document.querySelector('#ampm');
+
+			let hh = document.querySelector('#hh');
+			let mm = document.querySelector('#mm');
+			let ss = document.querySelector('#ss');
+
+			let hrDot = document.querySelector('.hr__dot');
+			let mDot = document.querySelector('.m__dot');
+			let sDot = document.querySelector('.s__dot');
+			
+
+			let hhStrokeDasharray = (window.getComputedStyle(hh)).strokeDasharray;
+			let mmStrokeDasharray = (window.getComputedStyle(mm)).strokeDasharray;
+			let ssStrokeDasharray = (window.getComputedStyle(ss)).strokeDasharray;
+
+			setInterval(() => {
+				let h = new Date().getHours();
+				let m = new Date().getMinutes();
+				let s = new Date().getSeconds();
+				let am = h >= 12 ? 'PM' : 'AM';
+				//convert 24hr clock to 12hr
+				if (h > 12) {
+					h = h - 12
+				}
+				//add 0 before single digit number
+				h = (h < 10) ? '0' + h : h;
+				m = (m < 10) ? '0' + m : m;
+				s = (s < 10) ? '0' + s : s;
+
+				hours.innerHTML = h;
+				minutes.innerHTML = m;
+				seconds.innerHTML = s;
+				ampm.innerHTML = am;
+
+				hh.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * h) / 12;
+				mm.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * m) / 60;
+				ss.style.strokeDashoffset = +hhStrokeDasharray.replace(/[^\.\d]/g, '') - (+hhStrokeDasharray.replace(/[^\.\d]/g, '') * s) / 60;
+
+				hrDot.style.transform = `rotate(${h * 30}deg)`;
+				mDot.style.transform = `rotate(${m * 6}deg)`;
+				sDot.style.transform = `rotate(${s * 6}deg)`;
+			},1000)
+
+
+
+
+
+
+
+
+
+		})
+
+
+	</script>
+	<!-- <script src="js/app.min.js"></script> -->
+</body>
